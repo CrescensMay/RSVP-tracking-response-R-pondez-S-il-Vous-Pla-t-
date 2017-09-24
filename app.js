@@ -6,6 +6,7 @@ var ul = document.getElementById('invitedList');
 var div = document.createElement('div');
 var filterLabel = document.createElement('label');
 var filterCheckBox = document.createElement('input');
+var deleteAll = document.querySelector('.supprime');
 // var number = document.createElement('label');
 
 filterLabel.textContent = "Cacher ceux qui n'ont pas répondu";
@@ -16,6 +17,14 @@ div.appendChild(filterCheckBox);
 // div.appendChild(number);
 mainDiv.insertBefore(div, ul);
 
+// deleteAll.addEventListener('click', function(event){
+//   if(event.target.tagName === 'BUTTON'){
+//       var li = event.target.parentNode;
+//       var ul = li.parentNode;
+//       ul.removeChild(li);
+//     }
+// });
+
 filterCheckBox.addEventListener('change', function(event){
   var isChecked = event.target.checked;
   var list = ul.children;
@@ -24,10 +33,6 @@ filterCheckBox.addEventListener('change', function(event){
       var li = list[i];
       if(li.className === 'responded'){
         li.style.display = '';
-        var label = appendToLi('label', 'textContent', 'Confirmed');
-        // label.textContent = 'Confirmed';
-
-        var checkbox = appendToLi('input', 'type', 'checkbox');
 
       }else {
         li.style.display = 'none';
@@ -59,7 +64,7 @@ function createLI(text){
   // span.textContent = text;
   // li.appendChild(span);
 
-  var label = appendToLi('label', 'textContent', 'Confirmed');
+  var label = appendToLi('label', 'textContent', 'Confirmer');
   // label.textContent = 'Confirmed';
 
   var checkbox = appendToLi('input', 'type', 'checkbox');
@@ -67,11 +72,11 @@ function createLI(text){
   label.appendChild(checkbox);
   // li.appendChild(label);
 
-  appendToLi('button', 'textContent', 'edit');
+  appendToLi('button', 'textContent', 'modifier');
   // editBtn.textContent = 'edit';
   // li.appendChild(editBtn);
 
-  appendToLi('button', 'textContent', 'remove');
+  appendToLi('button', 'textContent', 'supprimer');
   // removeBtn.textContent = 'remove';
   // li.appendChild(removeBtn);
 
@@ -109,19 +114,19 @@ ul.addEventListener('click', function(event){
     var ul = li.parentNode;
     var action = button.textContent;
     var nameActions = {
-      remove: () => {
+      supprimer: () => {
         ul.removeChild(li);
       },
-      edit: () => {
+      modifier: () => {
           var span = li.firstElementChild;
           var input = document.createElement('input');
           input.type = 'text';
           input.value = span.textContent;
           li.insertBefore(input, span);
           li.removeChild(span);
-          button.textContent = 'save';
+          button.textContent = 'enregistrer';
         },
-        save: () => {
+        enregistrer: () => {
             var input = li.firstElementChild;
             var span = document.createElement('span');
             span.textContent = input.value;
@@ -130,7 +135,7 @@ ul.addEventListener('click', function(event){
             }else {
               li.insertBefore(span, input);
               li.removeChild(input);
-              button.textContent = 'edit';
+              button.textContent = 'modifier';
             }
           }
     };
