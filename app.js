@@ -60,6 +60,14 @@ ul.addEventListener('click', function(event){
       li.insertBefore(input, span);
       li.removeChild(span);
       button.textContent = 'save';
+
+    }else if (button.textContent === 'save') {
+      var input = li.firstElementChild;
+      var span = document.createElement('span');
+      span.textContent = input.value;
+      li.insertBefore(span, input);
+      li.removeChild(input);
+      button.textContent = 'edit';
     }
   }
 });
