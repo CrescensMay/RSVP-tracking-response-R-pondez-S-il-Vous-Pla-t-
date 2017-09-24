@@ -2,15 +2,18 @@ var form = document.getElementById('registrar');
 var input = form.querySelector('input');
 var mainDiv = document.querySelector('.main');
 var ul = document.getElementById('invitedList');
-
+var total;
 var div = document.createElement('div');
 var filterLabel = document.createElement('label');
 var filterCheckBox = document.createElement('input');
+var number = document.createElement('label');
 
 filterLabel.textContent = "Cacher ceux qui n'ont pas répondu";
 filterCheckBox.type = 'checkbox';
+number.textContent = "Total Invités: " + total;
 div.appendChild(filterLabel);
 div.appendChild(filterCheckBox);
+div.appendChild(number);
 mainDiv.insertBefore(div, ul);
 
 filterCheckBox.addEventListener('change', function(event){
@@ -34,24 +37,38 @@ filterCheckBox.addEventListener('change', function(event){
 });
 
 function createLI(text){
+  function createElement(elementName, property, value){
+    var element = document.createElement(elementName);
+    element[property] = value;
+    return element;
+  }
+
+  function appendToLi(elementName, property, value){
+    var element = createElement(elementName, property, value);
+    li.appendChild(element);
+    return element;
+  }
   var li = document.createElement('li');
-  var span = document.createElement('span');
-  span.textContent = text;
-  li.appendChild(span);
-  var label = document.createElement('label');
-  label.textContent = 'Confirmed';
-  var checkbox = document.createElement('input');
-  checkbox.type = 'checkbox';
+
+  appendToLi('span', 'textContent', text);
+  // span.textContent = text;
+  // li.appendChild(span);
+
+  var label = appendToLi('label', 'textContent', 'Confirmed');
+  // label.textContent = 'Confirmed';
+
+  var checkbox = appendToLi('input', 'type', 'checkbox');
+  // checkbox.type = 'checkbox';
   label.appendChild(checkbox);
-  li.appendChild(label);
+  // li.appendChild(label);
 
-  var editBtn = document.createElement('button');
-  editBtn.textContent = 'edit';
-  li.appendChild(editBtn);
+  appendToLi('button', 'textContent', 'edit');
+  // editBtn.textContent = 'edit';
+  // li.appendChild(editBtn);
 
-  var removeBtn = document.createElement('button');
-  removeBtn.textContent = 'remove';
-  li.appendChild(removeBtn);
+  appendToLi('button', 'textContent', 'remove');
+  // removeBtn.textContent = 'remove';
+  // li.appendChild(removeBtn);
 
   return li;
 }
