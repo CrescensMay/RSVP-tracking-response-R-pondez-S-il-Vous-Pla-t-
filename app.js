@@ -2,18 +2,18 @@ var form = document.getElementById('registrar');
 var input = form.querySelector('input');
 var mainDiv = document.querySelector('.main');
 var ul = document.getElementById('invitedList');
-var total;
+// var total;
 var div = document.createElement('div');
 var filterLabel = document.createElement('label');
 var filterCheckBox = document.createElement('input');
-var number = document.createElement('label');
+// var number = document.createElement('label');
 
 filterLabel.textContent = "Cacher ceux qui n'ont pas répondu";
 filterCheckBox.type = 'checkbox';
-number.textContent = "Total Invités: " + total;
+// number.textContent = "Total Invités: " + total;
 div.appendChild(filterLabel);
 div.appendChild(filterCheckBox);
-div.appendChild(number);
+// div.appendChild(number);
 mainDiv.insertBefore(div, ul);
 
 filterCheckBox.addEventListener('change', function(event){
@@ -77,8 +77,12 @@ form.addEventListener('submit', function(event){
   event.preventDefault();
   var text = input.value;
   input.value = '';
-  var li = createLI(text);
-  ul.appendChild(li);
+  if(text === ''){
+    alert("Désolé, nom de l'invité ne peut demeurer vide!");
+  }else {
+    var li = createLI(text);
+    ul.appendChild(li);
+  }
 });
 
 ul.addEventListener('change', function(e){
@@ -98,24 +102,41 @@ ul.addEventListener('click', function(event){
     var button = event.target;
     var li = button.parentNode;
     var ul = li.parentNode;
-    if(button.textContent == 'remove'){
-      ul.removeChild(li);
-    }else if (button.textContent === 'edit') {
-      var span = li.firstElementChild;
-      var input = document.createElement('input');
-      input.type = 'text';
-      input.value = span.textContent;
-      li.insertBefore(input, span);
-      li.removeChild(span);
-      button.textContent = 'save';
-
-    }else if (button.textContent === 'save') {
-      var input = li.firstElementChild;
-      var span = document.createElement('span');
-      span.textContent = input.value;
-      li.insertBefore(span, input);
-      li.removeChild(input);
-      button.textContent = 'edit';
-    }
+    var action = button.textContent;
+    var nameActions = {
+      remove: () => {
+        ul.removeChild(li);
+      },
+      edit: () => {
+          var span = li.firstElementChild;
+          var input = document.createElement('input');
+          input.type = 'text';
+          input.value = span.textContent;
+          li.insertBefore(input, span);
+          li.removeChild(span);
+          button.textContent = 'save';
+        },
+        save: () => {
+            var input = li.firstElementChild;
+            var span = document.createElement('span');
+            span.textContent = input.value;
+            if(input.value === ''){
+              alert("Désolé, nom de l'invité ne peut demeurer vide!");
+            }else {
+              li.insertBefore(span, input);
+              li.removeChild(input);
+              button.textContent = 'edit';
+            }
+          }
+    };
+    // select and run action in button's name
+    nameActions[action]();
+    // if(action.textContent === 'remove'){
+    //   nameActions.remove();
+    // }else if (action.textContent === 'edit') {
+    //   nameActions.edit();
+    // }else if (action.textContent === 'save') {
+    //   nameActions.save();
+    // }
   }
 });
