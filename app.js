@@ -1,6 +1,37 @@
 var form = document.getElementById('registrar');
 var input = form.querySelector('input');
+var mainDiv = document.querySelector('.main');
 var ul = document.getElementById('invitedList');
+
+var div = document.createElement('div');
+var filterLabel = document.createElement('label');
+var filterCheckBox = document.createElement('input');
+
+filterLabel.textContent = "Cacher ceux qui n'ont pas répondu";
+filterCheckBox.type = 'checkbox';
+div.appendChild(filterLabel);
+div.appendChild(filterCheckBox);
+mainDiv.insertBefore(div, ul);
+
+filterCheckBox.addEventListener('change', function(event){
+  var isChecked = event.target.checked;
+  var list = ul.children;
+  if(isChecked){
+    for (var i = 0; i < list.length; i++) {
+      var li = list[i];
+      if(li.className === 'responded'){
+        li.style.display = '';
+      }else {
+        li.style.display = 'none';
+      }
+    }
+  }else{
+    for (var i = 0; i < list.length; i++) {
+      var li = list[i];
+      li.style.display = '';
+    }
+  }
+});
 
 function createLI(text){
   var li = document.createElement('li');
