@@ -24,6 +24,11 @@ filterCheckBox.addEventListener('change', function(event){
       var li = list[i];
       if(li.className === 'responded'){
         li.style.display = '';
+        var label = appendToLi('label', 'textContent', 'Confirmed');
+        // label.textContent = 'Confirmed';
+
+        var checkbox = appendToLi('input', 'type', 'checkbox');
+
       }else {
         li.style.display = 'none';
       }
@@ -78,7 +83,7 @@ form.addEventListener('submit', function(event){
   var text = input.value;
   input.value = '';
   if(text === ''){
-    alert("Désolé, nom de l'invité ne peut demeurer vide!");
+    alert("Désolé, nom de l'invité ne peut demeurer vide !");
   }else {
     var li = createLI(text);
     ul.appendChild(li);
@@ -121,7 +126,7 @@ ul.addEventListener('click', function(event){
             var span = document.createElement('span');
             span.textContent = input.value;
             if(input.value === ''){
-              alert("Désolé, nom de l'invité ne peut demeurer vide!");
+              alert("Désolé, nom de l'invité ne peut demeurer vide !");
             }else {
               li.insertBefore(span, input);
               li.removeChild(input);
