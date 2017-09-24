@@ -12,9 +12,13 @@ function createLI(text){
   label.appendChild(checkbox);
   li.appendChild(label);
 
-  var button = document.createElement('button');
-  button.textContent = 'remove';
-  li.appendChild(button);
+  var editBtn = document.createElement('button');
+  editBtn.textContent = 'edit';
+  li.appendChild(editBtn);
+
+  var removeBtn = document.createElement('button');
+  removeBtn.textContent = 'remove';
+  li.appendChild(removeBtn);
 
   return li;
 }
@@ -41,8 +45,13 @@ ul.addEventListener('change', function(e){
 
 ul.addEventListener('click', function(event){
   if(event.target.tagName === 'BUTTON'){
-    var li = event.target.parentNode;
+    var button = event.target;
+    var li = button.parentNode;
     var ul = li.parentNode;
-    ul.removeChild(li);
+    if(button.textContent == 'remove'){
+      ul.removeChild(li);
+    }else if (button.textContent === 'edit') {
+      console.log('Edit working');
+    }
   }
 });
