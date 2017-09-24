@@ -4,7 +4,9 @@ var ul = document.getElementById('invitedList');
 
 function createLI(text){
   var li = document.createElement('li');
-  li.textContent = text;
+  var span = document.createElement('span');
+  span.textContent = text;
+  li.appendChild(span);
   var label = document.createElement('label');
   label.textContent = 'Confirmed';
   var checkbox = document.createElement('input');
@@ -51,7 +53,13 @@ ul.addEventListener('click', function(event){
     if(button.textContent == 'remove'){
       ul.removeChild(li);
     }else if (button.textContent === 'edit') {
-      console.log('Edit working');
+      var span = li.firstElementChild;
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.value = span.textContent;
+      li.insertBefore(input, span);
+      li.removeChild(span);
+      button.textContent = 'save';
     }
   }
 });
